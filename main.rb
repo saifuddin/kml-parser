@@ -1,22 +1,18 @@
-require 'nokogiri'
-require 'byebug'
 require 'ruby_kml'
 
 def parse_kml(file_path)
-  debugger
-  # Read the KML file
-  file = File.open(file_path)
-  doc = Nokogiri::XML(file)
-  file.close
+  # Read the KML file using ruby_kml
+  kml = KML.load_file(file_path)
 
   # Extract placemarks
-  placemarks = doc.xpath('//Placemark')
-  placemarks.each do |placemark|
-    name = placemark.at_xpath('name')&.text
-    coordinates = placemark.at_xpath('.//coordinates')&.text
+  kml.features.each do |feature|
+    if feature.is_a?(KML::Placemark)
+      name = feature.name
+      coordinates = feature.geometry.coordinates
 
-    puts "Name: #{name}"
-    puts "Coordinates: #{coordinates}"
+      puts "Name: #{name}"
+      puts "Coordinates: #{coordinates}"
+    end
   end
 end
 
