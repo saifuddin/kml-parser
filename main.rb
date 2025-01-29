@@ -2,7 +2,7 @@ require 'ruby_kml'
 
 def parse_kml(file_path)
   # Read the KML file using ruby_kml
-  kml = KML.parse(File.read(file_path))
+  kml = KML.load(File.open(file_path))
 
   # Extract placemarks
   kml.features.each do |feature|
