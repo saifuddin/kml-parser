@@ -1,7 +1,9 @@
 require 'nokogiri'
 require 'byebug'
+require 'ruby_kml'
 
 def parse_kml(file_path)
+  debugger
   # Read the KML file
   file = File.open(file_path)
   doc = Nokogiri::XML(file)
